@@ -20,7 +20,7 @@ const useStyles = makeStyles((theme) => ({
     flexDirection: 'column',
   },
   cardMedia: {
-    paddingTop: '56.25%', // 16:9
+    paddingTop: '70%', // 56.25 - 16:9
   },
   cardContent: {
     flexGrow: 1,
@@ -36,7 +36,7 @@ export default function Products() {
   const [products, setProducts] = useState<Product[]>([]);
 
   useEffect(() => {
-    axios.get(API_PATHS.product)
+    axios.get(API_PATHS.products)
       .then(res => setProducts(res.data));
     // @ts-ignore
     setProducts(productList);

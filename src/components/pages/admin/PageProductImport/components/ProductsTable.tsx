@@ -16,14 +16,14 @@ export default function ProductsTable() {
   const [products, setProducts] = useState<any>([]);
 
   useEffect(() => {
-    axios.get(API_PATHS.product)
+    axios.get(API_PATHS.products)
       .then(res => setProducts(res.data));
   }, []);
 
   const onDelete = (id: string) => {
-    axios.delete(`${API_PATHS.bff}/product/${id}`)
+    axios.delete(`${API_PATHS.products}/${id}`)
       .then(() => {
-        axios.get(`${API_PATHS.bff}/product`)
+        axios.get(API_PATHS.products)
           .then(res => setProducts(res.data));
         }
       );
@@ -35,10 +35,12 @@ export default function ProductsTable() {
       <Table aria-label="simple table">
         <TableHead>
           <TableRow>
+            <TableCell>Logo</TableCell>
             <TableCell>Title</TableCell>
             <TableCell align="right">Description</TableCell>
             <TableCell align="right">Price</TableCell>
             <TableCell align="right">Count</TableCell>
+            <TableCell align="right">Year</TableCell>
             <TableCell align="right">Action</TableCell>
           </TableRow>
         </TableHead>
@@ -46,11 +48,15 @@ export default function ProductsTable() {
           {products.map((product: any) => (
             <TableRow key={product.id}>
               <TableCell component="th" scope="row">
+                <img src={product.image} alt={product.title}/>
+              </TableCell>
+              <TableCell component="th" scope="row">
                 {product.title}
               </TableCell>
               <TableCell align="right">{product.description}</TableCell>
               <TableCell align="right">{formatAsPrice(product.price)}</TableCell>
               <TableCell align="right">{product.count}</TableCell>
+              <TableCell align="right">{product.year}</TableCell>
               <TableCell align="right">
                 <Button size="small" color="primary" component={Link} to={`/admin/product-form/${product.id}`}>
                   Manage
